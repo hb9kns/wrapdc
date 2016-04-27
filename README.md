@@ -95,6 +95,13 @@ therefore define the longer commands first, and single character commands
 only at the very end. Otherwise, e.g the `rem` command would first have its
 `r` expanded as the "revert" command, therefore `rem` expansion would fail.
 
+## Bugs
+
+For the time being, results longer than 80 characters are not displayed
+correctly, as the logics treating `dc` continuation lines is missing.
+Internal results are not affected by this (but also results stored in
+registers/"memories" 0 to 9).
+
 ---
 
 _(2016-April, Y.Bonetti)_
