@@ -13,8 +13,8 @@ must be installed and accessible through `$PATH`.
 
 ## Installation and Use
 
-The wrapper script `wdc.sh` can be called directly (if executable) or by
-invoking `sh wdc.sh` with optional arguments.
+The wrapper script `wrapdc.sh` can be called directly (if executable) or by
+invoking `sh wrapdc.sh` with optional arguments.
 
 If arguments are given, they are interpreted as one line of commands,
 which is executed, and then the script finishes.

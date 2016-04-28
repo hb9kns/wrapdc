@@ -33,9 +33,9 @@ cycl(){
 # process direct commands
  case $1 in
  help*) cat <<EOH >&2
-wrapper for dc -- 2016 Y.Bonetti
- top 5 stack positions, registers 0-9 and precision
- are saved in '$statf'
+wrapper for dc // 2016 Y.Bonetti // see https://gitlab.com/yargo/wrapdc
+ top 5 stack positions, registers 0-9 and precision are saved
+  in '$statf'
 direct commands:
  list (defined macros)
  verb (verbose display: status and arguments) | noverb (normal display)
