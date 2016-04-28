@@ -49,11 +49,13 @@ may be useful in case of direct input with further command line arguments.
 
 ## Examples
 
-	$ sh wdc.sh 5k 2v # precision 5, 2 on stack, calculate square root
+(We assume `wrapdc.sh` is accessible via `$PATH` in what follows.)
+
+	$ wrapdc.sh 5k 2v # precision 5, 2 on stack, calculate square root
 	1.41421
-	$ sh wdc.sh 3 7/ # 3, divide by 7 (precision was saved from last run)
+	$ wrapdc.sh 3 7/ # 3, divide by 7 (precision was saved from last run)
 	.42857
-	$ sh wdc.sh list # display macros (and top of stack before finishing)
+	$ wrapdc.sh list # display macros (and top of stack before finishing)
 	: %t # percent part: X:=100*(X/Y), Y kept
 	: % # percentage: X:=X*Y/100, Y kept
 	: rem # remainder: X:=Y%X (instead of normal % command)
@@ -62,15 +64,15 @@ may be useful in case of direct input with further command line arguments.
 	: neg # negate: X:=-X
 	: r # revert: X:=Y, Y:=X (r is a GNU only extension)
 	.42857
-	$ sh wdc.sh 42fact sto1 # calculate 42! (factorial) and store in '1'
+	$ wrapdc.sh 42fact sto1 # calculate 42! (factorial) and store in '1'
 	1405006117752879898543142606244511569936384000000000
-	$ sh wdc.sh 2k234 7%+ # precision 2, add 7% to 234
+	$ wrapdc.sh 2k234 7%+ # precision 2, add 7% to 234
 	250.38
-	$ sh wdc.sh 234r%t+ # which is how many % of 234?
+	$ wrapdc.sh 234r%t+ # which is how many % of 234?
 	107.00
-	$ sh wdc.sh l1 40fact/ # divide memory '1' by the factorial of 40
+	$ wrapdc.sh l1 40fact/ # divide memory '1' by the factorial of 40
 	1722.0
-	$ sh wdc.sh 41 42* # which of course is 42!/40!=41*42
+	$ wrapdc.sh 41 42* # which of course is 42!/40!=41*42
 	1722
 
 Note: the last example only works if there is no file beginning with '42'
