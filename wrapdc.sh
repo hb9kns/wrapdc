@@ -2,9 +2,10 @@
 # wrapper for dc
 # global status file
 statf=$HOME/.wdcrc
-# if nonexistent, populate with precision 2, clear stack and memories
+# clear state: precision 2, clear stack and memories
+clstat='2k 0 0 0 0 0 0s00s10s20s30s40s50s60s70s80s9'
 if test ! -r $statf
-then echo '2k 0 0 0 0 0 0s00s10s20s30s40s50s60s70s80s9' >$statf
+then echo $clstat >$statf
 fi
 
 if test "$1" = "-v"
@@ -13,7 +14,7 @@ else verbose=':'
 fi
 
 # macros defined as sed patterns
-# (kill all '!' not part of comparison commands)
+# (kill all '!' not part of comparison commands, and also comments)
 mcrs='
 s,%t,SAdLA100*SASBLALB/,g;# percent part: X:=100*(X/Y), Y kept
 s,%,SAdLA*100/,g;# percentage: X:=X*Y/100, Y kept
@@ -21,8 +22,10 @@ s,rem,\%,g;# remainder: X:=Y%X (instead of normal '%' command)
 s,sto\(.\),s\1l\1,g;# sto.: store with copying (i.e keep value on stack)
 s,fact,[SAlA*LA1-d0<B]SBSA1LAlBx0*sBLB+,g;# factorial: X:=X!
 s,neg,_1*,g;# negate: X:=-X
+s,\$,dL4+s4dd*L5+s5rdL2+s2dd*L3+s3*L6+s6L11+s1,g;# statistic sums
 s,r,SRSTLRLT,g;# revert: X:=Y, Y:=X ('r' is a GNU only extension)
- s,![ 	]*[^<=>],#,
+ s,![ 	]*[^<=>].*,,
+ s,#.*,,
 '
 # get stored stack from statf, process input, and finish with
 # storing current precision (like "2k"), memories, and top 5 of stack,
@@ -36,15 +39,19 @@ cycl(){
 wrapper for dc // 2016 Y.Bonetti // see https://gitlab.com/yargo/wrapdc
  top 5 stack positions, registers 0-9 and precision are saved
   in '$statf'
+ statistic sum memories: mem.1=n, mem.2=sum(X), mem.3=sum(X^2),
+  mem.4=sum(Y), mem.5=sum(Y^2), mem.6=sum(X*Y)
 direct commands:
  list (defined macros)
  verb (verbose display: status and arguments) | noverb (normal display)
+ clear (clear state: standard precision, clear stack and memories)
 stack top value is displayed after each processed line:
 EOH
  ;;
  verb*) verbose='echo' ;;
  noverb*) verbose=':' ;;
- list*) echo "$mcrs"|grep '^s,'|sed -e 's/s,/: /;s/,.*#/ #/' >&2 ;;
+ list) echo "$mcrs"|grep '^s,'|sed -e 's/s,/: /;s/,.*#/ #/' >&2 ;;
+ clear) args="$clstat" ;;
 # if no command, get args, convert macros
  *) args=`echo "$@"|sed -e "$mcrs"` ;;
  esac
