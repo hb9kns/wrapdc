@@ -22,7 +22,7 @@ s,rem,\%,g;# remainder: X:=Y%X (instead of normal '%' command)
 s,sto\(.\),s\1l\1,g;# sto.: store with copying (i.e keep value on stack)
 s,fact,[SAlA*LA1-d0<B]SBSA1LAlBx0*sBLB+,g;# factorial: X:=X!
 s,neg,_1*,g;# negate: X:=-X
-s,\$,dL4+s4dd*L5+s5rdL2+s2dd*L3+s3*L6+s6L11+s1,g;# statistic sums
+s,\$,dL2+s2dd*L3+s3rdL4+s4dd*L5+s5*L6+s6L11+s1,g;# statistic sums
 s,r,SRSTLRLT,g;# revert: X:=Y, Y:=X ('r' is a GNU only extension)
  s,![ 	]*[^<=>].*,,
  s,#.*,,
