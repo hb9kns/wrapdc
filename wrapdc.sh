@@ -22,8 +22,10 @@ s,rem,\%,g;# remainder: X:=Y%X (instead of normal '%' command)
 s,sto\(.\),s\1l\1,g;# sto.: store with copying (i.e keep value on stack)
 s,fact,[SAlA*LA1-d0<B]SBSA1LAlBx0*sBLB+,g;# factorial: X:=X!
 s,neg,_1*,g;# negate: X:=-X
-s,\$,dL2+s2dd*L3+s3rdL4+s4dd*L5+s5*L6+s6L11+s1,g;# statistic sums
-s,r,SRSTLRLT,g;# revert: X:=Y, Y:=X ('r' is a GNU only extension)
+s,\$m,[l4l1/l2l1/]SSl10!=SsSLS,g;# mean value: X:=reg.2/reg.1, Y:=reg.4/reg.1
+s,\$-,dL2r-s2dd*L3r-s3rdL4r-s4dd*L5r-s5*L6r-s6L11-s1,g;# remove statistic entry
+s,\$+*,dL2+s2dd*L3+s3rdL4+s4dd*L5+s5*L6+s6L11+s1,g;# add statistic entry
+s,r,SRSSLRLS,g;# revert: X:=Y, Y:=X ('r' is a GNU extension)
  s,![ 	]*[^<=>].*,,
  s,#.*,,
 '
