@@ -35,7 +35,8 @@ always be available. This may render complex operations somewhat slower.
 In addition to the `quit` command, the following pseudocommands are handled
 directly by the wrapper:
 
-- `list` displays a list of predefined macros
+- `list` displays a list of predefined macros; please note the syntax is
+  according to `sed` i.e certain characters are escaped with backslash
 - `verb` activates verbose mode, which displays before each execution of
   input line the input from the status file as well as the input line with
   expanded macro definitions
@@ -56,13 +57,17 @@ may be useful in case of direct input with further command line arguments.
 	$ wrapdc.sh 3 7/ # 3, divide by 7 (precision was saved from last run)
 	.42857
 	$ wrapdc.sh list # display macros (and top of stack before finishing)
-	: %t # percent part: X:=100*(X/Y), Y kept
+	: %t # percent part: X:=100*X/Y, Y kept
+	: %d # percent delta: X:=100*(X-Y)/Y, Y kept
 	: % # percentage: X:=X*Y/100, Y kept
 	: rem # remainder: X:=Y%X (instead of normal % command)
 	: sto\(.\) # sto.: store with copying (i.e keep value on stack)
 	: fact # factorial: X:=X!
 	: neg # negate: X:=-X
-	: r # revert: X:=Y, Y:=X (r is a GNU only extension)
+	: \$m # mean value: X:=reg.2/reg.1, Y:=reg.4/reg.1
+	: \$- # remove statistic entry
+	: \$+* # add statistic entry
+	: r # revert: X:=Y, Y:=X (r is a GNU extension)
 	.42857
 	$ wrapdc.sh 42fact sto1 # calculate 42! (factorial) and store in '1'
 	1405006117752879898543142606244511569936384000000000
@@ -74,13 +79,20 @@ may be useful in case of direct input with further command line arguments.
 	1722.0
 	$ wrapdc.sh 41 42* # which of course is 42!/40!=41*42
 	1722
+	$ wrapdc.sh clear # set all registers to 0 (prepare for statistics)
+	0
+	$ wrapdc.sh '1$2$3$4$l2' # entries: 1,2,3,4; load reg.2 (sum)
+	10
+	$ wrapdc.sh '$m' # display average of statistic entries
+	2.50
 
-Note: the last example only works if there is no file beginning with '42'
-in the current directory, otherwise the shell will expand its name before
-passing on the argument to the wrapper script. In this case, you should
-escape the `*` or put the arguments in apostrophes `'41 42*'` or simply
-start the wrapper without arguments, and do the calculations in its internal
-command loop.
+Note: the example with `41 42*` only works if there is no file
+beginning with '42' in the current directory, otherwise the shell
+will expand its name before passing on the argument to the wrapper
+script. In this case, you should escape the `*` or put the arguments
+in apostrophes `'41 42*'` or simply start the wrapper without
+arguments, and do the calculations in its internal command loop.
+Preventing shell expansion is also necessary in the statistics example.
 
 ## Macros
 
@@ -106,4 +118,4 @@ registers/"memories" 0 to 9).
 
 ---
 
-_(2016-April, Y.Bonetti)_
+_(2016-May, Y.Bonetti)_
