@@ -16,7 +16,8 @@ fi
 # macros defined as sed patterns
 # (kill all '!' not part of comparison commands, and also comments)
 mcrs='
-s,%t,SAdLA100*SASBLALB/,g;# percent part: X:=100*(X/Y), Y kept
+s,%t,SAdLA100*SASBLALB/,g;# percent part: X:=100*X/Y, Y kept
+s,%d,SAddLA-_100*SASBLALB/,g;# percent delta: X:=100*(X-Y)/Y, Y kept
 s,%,SAdLA*100/,g;# percentage: X:=X*Y/100, Y kept
 s,rem,\%,g;# remainder: X:=Y%X (instead of normal '%' command)
 s,sto\(.\),s\1l\1,g;# sto.: store with copying (i.e keep value on stack)
