@@ -35,18 +35,44 @@ always be available. This may render complex operations somewhat slower.
 In addition to the `quit` command, the following pseudocommands are handled
 directly by the wrapper:
 
+- `help` shows some initial hints and this pseudocommand list
 - `list` displays a list of predefined macros; please note the syntax is
   according to `sed` i.e certain characters are escaped with backslash
 - `verb` activates verbose mode, which displays before each execution of
   input line the input from the status file as well as the input line with
   expanded macro definitions
 - `noverb` deactivates verbose mode
+- `clear` resets precision and all memories and stack registers
 
 All pseudocommands must be entered at the beginning of a line, and all
 subsequent input on this line will be ignored.
 
 Verbose mode can also be activated with the command line option `-v` which
 may be useful in case of direct input with further command line arguments.
+
+### Statistical Calculations
+
+The registers ("memories") 1 to 6 have special meanings for statistical
+calculations, and are used as follows:
+
+- reg.1 = number of entries `n`
+- reg.2 = sum of X values `sumX`
+- reg.3 = sum of X^2 values `sumX2`
+- reg.4 = sum of Y values `sumY`
+- reg.5 = sum of Y^2 values `sumY2`
+- reg.6 = sum of XY values `sumXY`
+
+The command `$` or `$+` adds the two topmost stack values to the statistical
+registers as follows: the topmost value is added to reg.2 and its square
+value to reg.3, the second to topmost value in the same way to reg.4 and 5,
+and the product of the two values to reg.6. reg.1 is then increased by 1.
+
+The command `$-` subtracts the values in the inverse way. Please note: due to
+rounding errors, `$-` is not the inverse of `$+` in some cases.
+
+The command `$m` calculates the mean values reg.2/reg.1 and reg.4/reg.1.
+
+_(More commands will be added in future versions.)_
 
 ## Examples
 
