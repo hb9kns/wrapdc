@@ -2,7 +2,7 @@
 # wrapper for dc
 # global status file
 statf=$HOME/.wdcrc
-# clear state: precision 2, clear stack and memories
+# clear state: precision 2, clear stack and reg.0..9
 clstat='2k 0 0 0 0 0 0s00s10s20s30s40s50s60s70s80s9'
 if test ! -r $statf
 then echo $clstat >$statf
@@ -40,10 +40,10 @@ cycl(){
  case $1 in
  help*) cat <<EOH >&2
 wrapper for dc // 2016 Y.Bonetti // see https://gitlab.com/yargo/wrapdc
- top 5 stack positions, registers 0-9 and precision are saved
+ top 5 stack positions, registers 0-9 ("memories") and precision are saved
   in '$statf'
- statistic sum memories: mem.1=n, mem.2=sum(X), mem.3=sum(X^2),
-  mem.4=sum(Y), mem.5=sum(Y^2), mem.6=sum(X*Y)
+ statistic sum registers: reg.1=n, reg.2=sum(X), reg.3=sum(X^2),
+  reg.4=sum(Y), reg.5=sum(Y^2), reg.6=sum(X*Y)
 direct commands:
  list (defined macros)
  verb (verbose display: status and arguments) | noverb (normal display)
