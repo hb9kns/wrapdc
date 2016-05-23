@@ -137,10 +137,7 @@ only at the very end. Otherwise, e.g the `rem` command would first have its
 
 ## Bugs
 
-For the time being, results longer than 80 characters are not displayed
-correctly, as the logics treating `dc` continuation lines is missing.
-Internal results are not affected by this (but also results stored in
-registers/"memories" 0 to 9).
+_(certainly, but none known at this moment)_
 
 ---
 

@@ -39,7 +39,7 @@ cycl(){
 # process direct commands
  case $1 in
  help*) cat <<EOH >&2
-wrapper for dc // 2016 Y.Bonetti // see https://gitlab.com/yargo/wrapdc
+wrapper for dc // 2016-05-23 Y.Bonetti // see https://gitlab.com/yargo/wrapdc
  top 5 stack positions, registers 0-9 ("memories") and precision are saved
   in '$statf'
  statistic sum registers: reg.1=n, reg.2=sum(X), reg.3=sum(X^2),
@@ -61,7 +61,9 @@ EOH
 $verbose :status: "$stat"
 $verbose :arguments: "$args" >&2
 $verbose >&2
- cat <<ENDOFDCINPUT | dc 2>/dev/null | sed -e 's/^-/_/' >$statf
+# read old status, actual input, and status preparation commands, pass to dc,
+# recreate dc specific minus signs, and join continuation lines
+ cat <<ENDOFDCINPUT | dc 2>/dev/null | sed -e 's/^-/_/' -e :a -e '/\\$/N; s/\\\n//; ta'>$statf
 $stat
 $args
 # save stack in registers A-E
