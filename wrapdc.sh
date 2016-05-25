@@ -39,8 +39,9 @@ s,r,SRSSLRLS,g;# revert: X:=Y, Y:=X ('r' is a GNU extension)
 # storing current precision (like "2k"), memories, and top 5 of stack,
 # and print stack top ("X register")
 cycl(){
-# get status, ignore error lines from unknown commands
+# get status, ignore error lines from unknown commands, clear arguments
  stat=`grep -v unimplemented $statf`
+ args=''
 # process direct commands
  case $1 in
  help*) cat <<EOH >&2
