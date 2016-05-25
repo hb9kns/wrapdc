@@ -20,7 +20,9 @@ If arguments are given, they are interpreted as one line of commands,
 which is executed, and then the script finishes.
 
 If no arguments are given, the script enters a loop: read a line
-of input from STDIN, execute it, and display the resulting top-of-stack.
+of input from STDIN, execute it, and display the resulting top-of-stack,
+together with the top of stack in exponential notation
+(which currently only works as usual for absolute values greater than 1).
 The loop (and script) finishes, when `quit` or CTRL-D is entered.
 
 All normal `dc` commands can be used, see the corresponding manual.
@@ -28,9 +30,14 @@ In particular, negative numbers must be entered with a leading `_`
 (underscore) as minus sign, not a `-` (dash), because the latter is
 indicating the command 'subtraction'.
 
+As an extension, values can also be entered in exponential notation,
+e.g `12e3` is converted to `1200` and `1E_2` to `.01` (if precision is 2).
+
 The `dc` command `r` (exchanging the two topmost stack entries) is emulated
 with some internal register operations, as it is a GNU extension and may not
 always be available. This may render complex operations somewhat slower.
+
+There is also a macro `drop` for removing the topmost stack value.
 
 In addition to the `quit` command, the following pseudocommands are handled
 directly by the wrapper:
@@ -76,12 +83,12 @@ _(More commands will be added in future versions.)_
 
 ## Examples
 
-(We assume `wrapdc.sh` is accessible via `$PATH` in what follows.)
+(We assume `wrapdc.sh` is executable in `$PATH` .)
 
 	$ wrapdc.sh 5k 2v # precision 5, 2 on stack, calculate square root
-	1.41421
+	1.41421 # 1.41421E0
 	$ wrapdc.sh 3 7/ # 3, divide by 7 (precision was saved from last run)
-	.42857
+	.42857 # 4.28570E-1
 	$ wrapdc.sh list # display macros (and top of stack before finishing)
 	: %t # percent part: X:=100*X/Y, Y kept
 	: %d # percent delta: X:=100*(X-Y)/Y, Y kept
@@ -93,24 +100,32 @@ _(More commands will be added in future versions.)_
 	: \$m # mean value: X:=reg.2/reg.1, Y:=reg.4/reg.1
 	: \$- # remove statistic entry
 	: \$+* # add statistic entry
+	: [eE]\(_*[0-9][0-9]*\) # infix exponential: X:=X*10^N
+	: drop # stack drop
 	: r # revert: X:=Y, Y:=X (r is a GNU extension)
-	.42857
+	.42857 # 4.28570E-1
 	$ wrapdc.sh 42fact sto1 # calculate 42! (factorial) and store in '1'
-	1405006117752879898543142606244511569936384000000000
+	1405006117752879898543142606244511569936384000000000 # 1.40500E51
 	$ wrapdc.sh 2k234 7%+ # precision 2, add 7% to 234
-	250.38
-	$ wrapdc.sh 234r%t+ # which is how many % of 234?
-	107.00
+	250.38 # 2.50E2
+	$ wrapdc.sh 234r%t # which is how many % of 234?
+	107.00 # 1.07E2
 	$ wrapdc.sh l1 40fact/ # divide memory '1' by the factorial of 40
-	1722.0
+	1722.00 # 1.72E3
 	$ wrapdc.sh 41 42* # which of course is 42!/40!=41*42
-	1722
+	1722 # 1.72E3
 	$ wrapdc.sh clear # set all registers to 0 (prepare for statistics)
-	0
+	0 # 0E-1
 	$ wrapdc.sh '1$2$3$4$l2' # entries: 1,2,3,4; load reg.2 (sum)
-	10
+	10 # 1.00E1
 	$ wrapdc.sh '$m' # display average of statistic entries
-	2.50
+	2.50 # 2.50E0
+	$ wrapdc.sh 1234fact|sed -e 's/.*#//' # 1234!, only display exponential
+	 5.10E3280
+	$ wrapdc.sh 1233fact/ # just checking: 1234!/1233!=1234
+	1234.00 # 1.23E3
+	$ wrapdc.sh 1.23e3- # just checking exponential notation
+	4.00 # 4.00E0
 
 Note: the example with `41 42*` only works if there is no file
 beginning with '42' in the current directory, otherwise the shell
