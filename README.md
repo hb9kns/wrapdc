@@ -1,4 +1,12 @@
-# Command line wrapper for `dc (1)`
+# NAME
+
+**wrapdc** - Command line wrapper for `dc (1)`
+
+# SYNTAX
+
+**wrapdc** [-v] [pseudocommand] [command]
+
+# DESCRIPTION
 
 This wrapper renders `dc` more usable as a command line calculator by:
 
@@ -6,12 +14,12 @@ This wrapper renders `dc` more usable as a command line calculator by:
 - saving precision, top of stack, and registers 0 to 9 ("memories")
   from one invocation to the next
 
-## Prerequisites
+# PREREQUISITES
 
 The POSIX conform program `dc` ("desktop calculator") and standard shell `sh`
 must be installed and accessible through `$PATH`.
 
-## Installation and Use
+# USAGE
 
 The wrapper script `wrapdc.sh` can be called directly (if executable) or by
 invoking `sh wrapdc.sh` with optional arguments.
@@ -57,7 +65,7 @@ subsequent input on this line will be ignored.
 Verbose mode can also be activated with the command line option `-v` which
 may be useful in case of direct input with further command line arguments.
 
-### Statistical Calculations
+## Statistical Calculations
 
 The registers ("memories") 1 to 6 have special meanings for statistical
 calculations, and are used as follows:
@@ -81,7 +89,7 @@ The command `$m` calculates the mean values reg.2/reg.1 and reg.4/reg.1.
 
 _(More commands will be added in future versions.)_
 
-## Examples
+# EXAMPLES
 
 (We assume `wrapdc.sh` is executable in `$PATH` .)
 
@@ -135,7 +143,7 @@ in apostrophes `'41 42*'` or simply start the wrapper without
 arguments, and do the calculations in its internal command loop.
 Preventing shell expansion is also necessary in the statistics example.
 
-## Macros
+# MACROS
 
 Macros can be easily added to the script, if you know `sed` syntax.
 They are defined in the shell variable `mcrs.` where each one should be
@@ -150,10 +158,12 @@ therefore define the longer commands first, and single character commands
 only at the very end. Otherwise, e.g the `rem` command would first have its
 `r` expanded as the "revert" command, therefore `rem` expansion would fail.
 
-## Bugs
+# BUGS
 
 _(certainly, but none known at this moment)_
 
 ---
 
-_(2016-May, Y.Bonetti)_
+# AUTHOR
+
+Yargo Bonetti
