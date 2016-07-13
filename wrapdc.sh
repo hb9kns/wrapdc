@@ -1,8 +1,6 @@
 #!/bin/sh
 # wrapper for dc
-info="
-wrapper for dc // 2016-05-25 Y.Bonetti // see https://gitlab.com/yargo/wrapdc
-"
+info="wrapper for dc // 2016-07-13 Y.Bonetti // see https://gitlab.com/yargo/wrapdc"
 # global status file
 statf=$HOME/.wdcrc
 # clear state: precision 2, clear stack and reg.0..9
@@ -45,7 +43,9 @@ cycl(){
 # process direct commands
  case $1 in
  help*) cat <<EOH >&2
+
 $info
+
  top 5 stack positions, registers 0-9 ("memories") and precision are saved
   in '$statf'
  statistic sum registers: reg.1=n, reg.2=sum(X), reg.3=sum(X^2),
@@ -75,6 +75,11 @@ $stat
 $args
 # save stack in registers A-E
 SASBSCSDSE
+# print '#' (ASCII value 35) and info strings
+35P[ config file generated on `date` by
+]n
+35P[ $info
+]n
 # print precision and 'k' and 'c' to clear stack when loading
 Kn[kc
 ]n
