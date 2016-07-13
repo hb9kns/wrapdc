@@ -12,7 +12,7 @@ This wrapper renders `dc` more usable as a command line calculator by:
 
 - defining commonly used macros for more complex operations
 - saving precision, top of stack, and registers 0 to 9 ("memories")
-  from one invocation to the next
+  from one invocation to the next in the status file `$HOME/.wdcrc`
 
 # PREREQUISITES
 
@@ -157,6 +157,11 @@ Please note that the macro expansion is global and "stupid" -- you should
 therefore define the longer commands first, and single character commands
 only at the very end. Otherwise, e.g the `rem` command would first have its
 `r` expanded as the "revert" command, therefore `rem` expansion would fail.
+
+# FILES
+
+The status between invocations is stored in the file `$HOME/.wdcrc` as a
+list of `dc` commands.
 
 # BUGS
 
