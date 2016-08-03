@@ -1,6 +1,6 @@
 #!/bin/sh
 # wrapper for dc
-info="wrapper for dc // 2016-07-13 Y.Bonetti // see https://gitlab.com/yargo/wrapdc"
+info="wrapper for dc // 2016-08-03 Y.Bonetti // see https://gitlab.com/yargo/wrapdc"
 # global status file
 statf=$HOME/.wdcrc
 # clear state: precision 2, clear stack and reg.0..9
