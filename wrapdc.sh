@@ -20,6 +20,7 @@ mcrs='
 s,%t,SAdLA100*SASBLALB/,g;# percent part: X:=100*X/Y, Y kept
 s,%d,SAddLA-_100*SASBLALB/,g;# percent delta: X:=100*(X-Y)/Y, Y kept
 s,%,SAdLA*100/,g;# percentage: X:=X*Y/100, Y kept
+s,hm,r60*+,g;# hoursminutes: X:=X+Y*60
 s,rem,\%,g;# remainder: X:=Y%X (instead of normal '%' command)
 s,sto\(.\),s\1l\1,g;# sto.: store with copying (i.e keep value on stack)
 s,fact,[SAlA*LA1-d0<B]SBSA1LAlBx0*sBLB+,g;# factorial: X:=X!
