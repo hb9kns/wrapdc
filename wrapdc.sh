@@ -1,6 +1,6 @@
 #!/bin/sh
 # wrapper for dc
-info="wrapper for dc // 2016-08-03 Y.Bonetti // see https://gitlab.com/yargo/wrapdc"
+info="wrapper for dc // 2016-11-22 Y.Bonetti // see https://gitlab.com/yargo/wrapdc"
 # global status file
 statf=$HOME/.wdcrc
 # clear state: precision 2, clear stack and reg.0..9
@@ -25,9 +25,11 @@ s,rem,\%,g;# remainder: X:=Y%X (instead of normal '%' command)
 s,sto\(.\),s\1l\1,g;# sto.: store with copying (i.e keep value on stack)
 s,fact,[SAlA*LA1-d0<B]SBSA1LAlBx0*sBLB+,g;# factorial: X:=X!
 s,neg,_1*,g;# negate: X:=-X
+s,inv,1r/,g;# inverse: X:=1/X
 s,\$m,[l4l1/l2l1/]SSl10!=SsSLS,g;# mean value: X:=reg.2/reg.1, Y:=reg.4/reg.1
 s,\$-,dL2r-s2dd*L3r-s3rdL4r-s4dd*L5r-s5*L6r-s6L11-s1,g;# remove statistic entry
 s,\$+*,dL2+s2dd*L3+s3rdL4+s4dd*L5+s5*L6+s6L11+s1,g;# add statistic entry
+s, , ,;# statistic registers:1=n 2=sumX 3=sumX^2 4=sumY 5=sumY^2 6=sumXY
 s,[eE]\(_*[0-9][0-9]*\), 10 \1^*,g;# infix exponential: X:=X*10^N
 s,drop,0*+,g;# stack drop
 s,r,SRSSLRLS,g;# revert: X:=Y, Y:=X ('r' is a GNU extension)
@@ -47,16 +49,14 @@ cycl(){
 
 $info
 
- top 5 stack positions, registers 0-9 ("memories") and precision are saved
-  in '$statf'
- statistic sum registers: reg.1=n, reg.2=sum(X), reg.3=sum(X^2),
-  reg.4=sum(Y), reg.5=sum(Y^2), reg.6=sum(X*Y)
+top 5 stack positions, registers 0-9 ("memories") and precision are saved
+ in '$statf'
 direct commands:
  list (defined macros)
  verb (verbose display: status and arguments) | noverb (normal display)
  clear (clear state: standard precision, clear stack and memories)
-stack top value is displayed after each processed line:
 
+stack top value is displayed after each processed line:
 EOH
  ;;
  verb*) verbose='echo' ;;

@@ -68,7 +68,7 @@ may be useful in case of direct input with further command line arguments.
 ## Statistical Calculations
 
 The registers ("memories") 1 to 6 have special meanings for statistical
-calculations, and are used as follows:
+calculations with `$...` macros, and are used as follows:
 
 - reg.1 = number of entries `n`
 - reg.2 = sum of X values `sumX`
