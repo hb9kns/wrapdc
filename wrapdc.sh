@@ -19,6 +19,7 @@ fi
 mcrs='
 s,%t,SAdLA100*SASBLALB/,g;# percent part: X:=100*X/Y, Y kept
 s,%d,SAddLA-_100*SASBLALB/,g;# percent delta: X:=100*(X-Y)/Y, Y kept
+s,%f,SAdlA*100LA-/,g;# percent future: X:=Y*X/(100-X), Y kept
 s,%,SAdLA*100/,g;# percentage: X:=X*Y/100, Y kept
 s,hm,r60*+,g;# hoursminutes: X:=X+Y*60
 s,rem,\%,g;# remainder: X:=Y%X (instead of normal '%' command)
