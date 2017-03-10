@@ -4,7 +4,7 @@ info="wrapper for dc // 2017-03-10 Y.Bonetti // see https://gitlab.com/yargo/wra
 # global status file
 statf=$HOME/.wdcrc
 # output file (last stack top)
-outf=$HOME/wdc
+outf=/tmp/wdc-$USER
 # clear state: precision 2, clear stack and reg.0..9
 clstat='2k 0 0 0 0 0 0s00s10s20s30s40s50s60s70s80s9'
 if test ! -r $statf

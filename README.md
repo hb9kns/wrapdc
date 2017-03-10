@@ -13,7 +13,7 @@ This wrapper renders `dc` more usable as a command line calculator by:
 - defining commonly used macros for more complex operations
 - saving precision, top of stack, and registers 0 to 9 ("memories")
   from one invocation to the next in the status file `$HOME/.wdcrc`
-- saving last top of stack value in `$HOME/wdc` for further direct use
+- saving last top of stack value in `/tmp/wdc-$USER` for further direct use
   (change file name in the source, if desired)
 
 # PREREQUISITES
@@ -163,7 +163,7 @@ only at the very end. Otherwise, e.g the `rem` command would first have its
 # FILES
 
 - The status between invocations is stored in the file `$HOME/.wdcrc` as a list of `dc` commands.
-- The last top of stack value is stored in `$HOME/wdc`.
+- The last top of stack value is stored in `/tmp/wdc-$USER`.
 
 _These file names can be easily changed at the beginning of the script._
 
