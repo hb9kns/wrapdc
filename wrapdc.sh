@@ -1,10 +1,10 @@
 #!/bin/sh
 # wrapper for dc
-info="wrapper for dc // 2017-03-10 Y.Bonetti // see https://gitlab.com/yargo/wrapdc"
+info="wrapper for dc // 2017-08-31 Y.Bonetti // see https://gitlab.com/yargo/wrapdc"
 # global status file
 statf=$HOME/.wdcrc
 # output file (last stack top)
-outf=/tmp/wdc-$USER
+outf=${TMPDIR:-/tmp}/wdc-$USER
 # clear state: precision 2, clear stack and reg.0..9
 clstat='2k 0 0 0 0 0 0s00s10s20s30s40s50s60s70s80s9'
 if test ! -r $statf
