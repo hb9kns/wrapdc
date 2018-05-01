@@ -1,6 +1,6 @@
 #!/bin/sh
 # wrapper for dc
-info="wrapper for dc // 2017-08-31 Y.Bonetti // see https://gitlab.com/yargo/wrapdc"
+info="wrapper for dc // 2018-5-1 Y.Bonetti // see https://github.com/hb9kns/wrapdc"
 # global status file
 statf=$HOME/.wdcrc
 # output file (last stack top)
